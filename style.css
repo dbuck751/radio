@@ -1,0 +1,261 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #1a1410;
+  color: #e8d9c4;
+}
+
+.header {
+  border-bottom: 2px solid #5a3a1a;
+  line-height: 0;
+}
+
+.hero-banner {
+  width: 100%;
+  display: block;
+  max-height: 300px;
+  object-fit: contain;
+  background: #000;
+}
+
+.header-text {
+  line-height: normal;
+  padding: 16px 20px 12px;
+  background: linear-gradient(180deg, #2b1d12, #1a1410);
+  text-align: center;
+}
+
+.header-text h1 {
+  margin: 0;
+  font-size: 2.2em;
+  letter-spacing: 2px;
+  color: #e8a33d;
+  text-shadow: 0 0 12px rgba(232,163,61,0.4);
+}
+
+.tagline {
+  color: #b89a6f;
+  font-size: 0.95em;
+  margin-top: 6px;
+}
+
+@media (max-width: 600px) {
+  .hero-banner {
+    max-height: 160px;
+  }
+
+  .header-text h1 {
+    font-size: 1.4em;
+    letter-spacing: 1px;
+  }
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.sidebar, .rightbar {
+  flex: 1;
+  min-width: 220px;
+  background: #241b12;
+  border: 1px solid #4a3520;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.player-panel {
+  flex: 2;
+  min-width: 320px;
+  background: #241b12;
+  border: 1px solid #4a3520;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+}
+
+.sidebar h3, .rightbar h3 {
+  color: #e8a33d;
+  border-bottom: 1px solid #4a3520;
+  padding-bottom: 8px;
+  margin-top: 0;
+}
+
+.station {
+  padding: 10px 12px;
+  margin: 6px 0;
+  background: #2f2316;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.station:hover {
+  background: #4a3520;
+  transform: translateX(2px);
+}
+
+.station.active {
+  background: #5a3a1a;
+  border-left: 3px solid #e8a33d;
+  color: #e8a33d;
+}
+
+#art {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid #5a3a1a;
+  margin-bottom: 16px;
+}
+
+.song {
+  font-size: 1.3em;
+  font-weight: bold;
+  color: #e8d9c4;
+}
+
+.artist {
+  color: #b89a6f;
+  margin-bottom: 16px;
+}
+
+audio {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.stat-box {
+  margin-bottom: 18px;
+}
+
+.stat-title {
+  color: #b89a6f;
+  font-size: 0.85em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+#listeners {
+  font-size: 1.8em;
+  color: #e8a33d;
+  font-weight: bold;
+}
+
+.recent-song {
+  padding: 6px 0;
+  color: #d8c4a4;
+  font-size: 0.9em;
+  border-bottom: 1px solid #3a2a18;
+}
+
+.player-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  justify-content: center;
+}
+
+.skip-btn,
+.like-btn {
+  flex: 1;
+  padding: 8px 16px;
+  background: #2f2316;
+  border: 1px solid #4a3520;
+  border-radius: 6px;
+  color: #e8d9c4;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.skip-btn:hover,
+.like-btn:hover {
+  background: #4a3520;
+}
+
+.like-btn.liked {
+  color: #e8a33d;
+  border-color: #e8a33d;
+}
+
+.submit-link {
+  display: block;
+  margin-top: 16px;
+  padding: 8px 12px;
+  color: #b89a6f;
+  font-size: 0.85em;
+  text-decoration: none;
+  border: 1px dashed #4a3520;
+  border-radius: 6px;
+  text-align: center;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.submit-link:hover {
+  color: #e8a33d;
+  border-color: #e8a33d;
+}
+
+.footer {
+  text-align: center;
+  padding: 20px;
+  color: #6a5238;
+  font-size: 0.85em;
+}
+
+@media (max-width: 600px) {
+  .header {
+    padding: 20px 16px 10px;
+  }
+
+  .header h1 {
+    font-size: 1.4em;
+    letter-spacing: 1px;
+  }
+
+  .tagline {
+    font-size: 0.85em;
+  }
+
+  .container {
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .sidebar, .rightbar, .player-panel {
+    min-width: unset;
+    width: 100%;
+  }
+
+  .station {
+    padding: 14px 12px;
+    font-size: 1em;
+  }
+
+  #art {
+    width: 160px;
+    height: 160px;
+  }
+
+  .skip-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 1em;
+  }
+
+  .submit-link {
+    padding: 12px;
+    font-size: 0.9em;
+  }
+}

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Admin — Stoner Rock Radio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: 'Segoe UI', Arial, sans-serif; background: #1a1410; color: #e8d9c4; }
+
+  .header {
+    text-align: center;
+    padding: 24px 20px 16px;
+    background: linear-gradient(180deg, #2b1d12, #1a1410);
+    border-bottom: 2px solid #5a3a1a;
+  }
+  .header h1 { margin: 0; color: #e8a33d; letter-spacing: 2px; font-size: 1.6em; }
+  .header p { margin: 6px 0 0; color: #b89a6f; font-size: 0.85em; }
+
+  .toolbar {
+    max-width: 860px;
+    margin: 20px auto 0;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .refresh-btn {
+    padding: 8px 18px;
+    background: #2f2316;
+    border: 1px solid #4a3520;
+    border-radius: 6px;
+    color: #e8d9c4;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background 0.2s;
+  }
+  .refresh-btn:hover { background: #4a3520; }
+
+  #count { color: #b89a6f; font-size: 0.85em; }
+
+  .container { max-width: 860px; margin: 16px auto 40px; padding: 0 20px; }
+
+  .status { text-align: center; padding: 60px 20px; color: #b89a6f; font-size: 1em; }
+
+  .card {
+    background: #241b12;
+    border: 1px solid #4a3520;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 18px;
+    display: flex;
+    gap: 18px;
+    transition: opacity 0.3s;
+  }
+  .card.done { opacity: 0.35; pointer-events: none; }
+
+  .artwork {
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #4a3520;
+    flex-shrink: 0;
+    background: #2f2316;
+  }
+
+  .card-body { flex: 1; min-width: 0; }
+
+  .station-badge {
+    display: inline-block;
+    background: #2f2316;
+    border: 1px solid #4a3520;
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 0.75em;
+    color: #e8a33d;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  .card-title { font-size: 1.1em; font-weight: bold; color: #e8d9c4; margin-bottom: 2px; }
+  .card-artist { color: #b89a6f; font-size: 0.9em; margin-bottom: 8px; }
+  .card-cid { font-size: 0.72em; color: #6a5238; word-break: break-all; margin-bottom: 10px; line-height: 1.5; }
+
+  audio { width: 100%; margin-bottom: 12px; }
+
+  .actions { display: flex; gap: 10px; }
+
+  .btn {
+    padding: 8px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9em;
+    border: 1px solid;
+    font-weight: bold;
+    transition: background 0.15s;
+  }
+  .approve { background: #162416; border-color: #2d6e2d; color: #7ed87e; }
+  .approve:hover { background: #1e3a1e; }
+  .reject { background: #2a1414; border-color: #6e2d2d; color: #d87e7e; }
+  .reject:hover { background: #3a1a1a; }
+
+  .msg {
+    margin-top: 8px;
+    font-size: 0.82em;
+    min-height: 18px;
+  }
+  .msg.success { color: #7ed87e; }
+  .msg.error { color: #d87e7e; }
+  .msg.pending { color: #b89a6f; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>SUBMISSION REVIEW</h1>
+  <p>Stoner Rock Radio &mdash; Admin Panel</p>
+</div>
+
+<div class="toolbar">
+  <button class="refresh-btn" onclick="loadSubmissions()">&#8635; Refresh</button>
+  <span id="count"></span>
+</div>
+
+<div class="container">
+  <div id="submissions"><div class="status">Loading submissions...</div></div>
+</div>
+
+<script>
+const GATEWAY = "https://ipfs.io/ipfs/";
+let allSubmissions = [];
+
+async function loadSubmissions() {
+  document.getElementById("count").innerText = "";
+  document.getElementById("submissions").innerHTML = '<div class="status">Fetching from relay...</div>';
+  try {
+    const res = await fetch("/api/submissions");
+    allSubmissions = await res.json();
+    render();
+  } catch (e) {
+    document.getElementById("submissions").innerHTML = `<div class="status">Error: ${e.message}</div>`;
+  }
+}
+
+function escHtml(str) {
+  return (str || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+function render() {
+  const count = document.getElementById("count");
+  if (allSubmissions.length === 0) {
+    count.innerText = "";
+    document.getElementById("submissions").innerHTML = '<div class="status">No pending submissions.</div>';
+    return;
+  }
+  count.innerText = `${allSubmissions.length} pending`;
+
+  document.getElementById("submissions").innerHTML = allSubmissions.map((s, i) => `
+    <div class="card" id="card-${i}">
+      <img class="artwork" id="art-${i}" src="${GATEWAY}${s.cid}/artwork.png" alt="artwork">
+      <div class="card-body">
+        <div class="station-badge">${escHtml(s.station || "desert")}</div>
+        <div class="card-title">${escHtml(s.name)}</div>
+        <div class="card-artist">${escHtml(s.artist)}${s.genre ? " &bull; " + escHtml(s.genre) : ""}</div>
+        <div class="card-cid">
+          CID: ${escHtml(s.cid)}<br>
+          Wallet: ${escHtml(s.wallet || "—")}
+        </div>
+        <audio controls src="${GATEWAY}${s.cid}/song.mp3"></audio>
+        <div class="actions">
+          <button class="btn approve" data-i="${i}">&#10003; Approve</button>
+          <button class="btn reject" data-i="${i}">&#10007; Reject</button>
+        </div>
+        <div class="msg" id="msg-${i}"></div>
+      </div>
+    </div>
+  `).join("");
+
+  allSubmissions.forEach((s, i) => {
+    const img = document.getElementById(`art-${i}`);
+    img.onerror = function () {
+      if (this.src.includes("artwork.png")) {
+        this.onerror = () => this.style.display = "none";
+        this.src = `${GATEWAY}${s.cid}/artwork.jpg`;
+      } else {
+        this.style.display = "none";
+      }
+    };
+  });
+
+  document.querySelectorAll(".btn.approve").forEach(btn => {
+    btn.addEventListener("click", () => approve(+btn.dataset.i));
+  });
+  document.querySelectorAll(".btn.reject").forEach(btn => {
+    btn.addEventListener("click", () => reject(+btn.dataset.i));
+  });
+}
+
+async function approve(i) {
+  const s = allSubmissions[i];
+  const msg = document.getElementById(`msg-${i}`);
+  msg.className = "msg pending";
+  msg.innerText = "Saving...";
+  try {
+    const res = await fetch("/api/approve", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(s)
+    });
+    const data = await res.json();
+    if (!data.ok) throw new Error(data.error);
+    document.getElementById(`card-${i}`).classList.add("done");
+    msg.className = "msg success";
+    msg.innerText = "✓ Added to tracks.json";
+  } catch (e) {
+    msg.className = "msg error";
+    msg.innerText = "Error: " + e.message;
+  }
+}
+
+async function reject(i) {
+  const s = allSubmissions[i];
+  const msg = document.getElementById(`msg-${i}`);
+  msg.className = "msg pending";
+  msg.innerText = "Rejecting...";
+  try {
+    const res = await fetch("/api/reject", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ cid: s.cid })
+    });
+    const data = await res.json();
+    if (!data.ok) throw new Error(data.error);
+    document.getElementById(`card-${i}`).classList.add("done");
+    msg.className = "msg error";
+    msg.innerText = "✗ Rejected and blocklisted";
+  } catch (e) {
+    msg.className = "msg error";
+    msg.innerText = "Error: " + e.message;
+  }
+}
+
+loadSubmissions();
+</script>
+</body>
+</html>

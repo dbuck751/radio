@@ -1,0 +1,12 @@
+{
+  "name": "stoner-rock-radio",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "review": "node review-submissions.js",
+    "admin": "node admin-server.js"
+  },
+  "dependencies": {
+    "nostr-tools": "^2.10.4"
+  }
+}

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<title>Stoner Rock Radio</title>
+
+<link rel="stylesheet" href="style.css">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+
+<div class="header">
+  <picture>
+    <source media="(max-width: 600px)" srcset="assets/desert-bg-mobile.jpg">
+    <img src="assets/desert-bg-desktop.jpg" alt="Stoner Rock Music" class="hero-banner">
+  </picture>
+  <div class="header-text">
+    <h1>STONER ROCK MUSIC</h1>
+    <div class="tagline">Heavy Riffs &bull; Desert Vibes &bull; Loud &amp; Slow</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="sidebar">
+    <h3>STATIONS</h3>
+    <div class="station" data-station="desert">Desert Rock Radio</div>
+    <div class="station" data-station="doom">Doom Radio</div>
+    <div class="station" data-station="psychedelic">Psychedelic Radio</div>
+    <div class="station" data-station="instrumental">Instrumental Radio</div>
+    <a href="submit.html" class="submit-link">+ Submit a Track</a>
+  </div>
+
+  <div class="player-panel">
+    <img id="art" src="assets/desert-bg.png">
+    <div class="song" id="title">Loading...</div>
+    <div class="artist" id="artist">Please Wait</div>
+    <div class="artist" id="description" style="font-size:0.8em; font-style:italic; margin-bottom:10px;"></div>
+    <audio id="player" controls autoplay></audio>
+    <div class="player-actions">
+      <button id="skipBtn" class="skip-btn">&#9654;&#9654; Skip</button>
+      <button id="likeBtn" class="like-btn">&#9829; <span id="likeCount">0</span></button>
+    </div>
+  </div>
+
+  <div class="rightbar">
+    <h3>RADIO INFO</h3>
+
+    <div class="stat-box">
+      <div class="stat-title">Current Listeners</div>
+      <div id="listeners">1</div>
+    </div>
+
+    <div class="stat-box">
+      <div class="stat-title">Up Next</div>
+      <div id="upNextTitle" style="color:#e8d9c4; font-size:0.9em;">—</div>
+      <div id="upNextArtist" style="color:#b89a6f; font-size:0.8em;">—</div>
+    </div>
+
+    <div class="stat-box">
+      <div class="stat-title">Recently Played</div>
+      <div class="recent-song">—</div>
+      <div class="recent-song">—</div>
+      <div class="recent-song">—</div>
+    </div>
+
+    <div class="stat-box">
+      <div class="stat-title">Wallet</div>
+      <button id="connectWalletBtn" class="station" style="width:100%; margin-top:4px; text-align:center;">Connect Wallet</button>
+      <div id="walletAddr" style="font-size:0.75em; color:#b89a6f; margin-top:6px; word-break:break-all;"></div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="footer">DBLoops Stoner Rock Radio</div>
+
+<script src="player.js" type="module"></script>
+
+</body>
+</html>

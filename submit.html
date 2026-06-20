@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Submit a Track — Stoner Rock Radio</title>
+<link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.13.2/ethers.umd.min.js"></script>
+</head>
+<body>
+
+<div class="header">
+  <h1>SUBMIT A TRACK</h1>
+  <div class="tagline">Pin your own folder → paste CID → connect wallet → submit</div>
+  <a href="index.html" class="submit-link">&larr; Back to Radio</a>
+</div>
+
+<div class="container" style="max-width:500px; margin:0 auto;">
+  <div class="player-panel" style="text-align:left;">
+
+    <p style="color:#b89a6f; font-size:0.85em; line-height:1.5;">
+      Pin a folder to IPFS containing these files:<br>
+      <code>song.mp3</code>, <code>artwork.png</code> (or <code>artwork.jpg</code>), <code>metadata.json</code><br><br>
+      <code>metadata.json</code> should look like:<br>
+      <code>{ "name": "...", "artist": "...", "description": "..." }</code>
+    </p>
+
+    <label>Folder CID</label><br>
+    <input type="text" id="folderCid" placeholder="bafybeigdyrzt..." style="width:100%; margin-bottom:12px; padding:8px;"><br>
+
+    <button id="previewBtn" class="station" style="width:100%; margin-bottom:16px;">
+      Preview Metadata
+    </button>
+
+    <div id="previewBox" style="display:none; margin-bottom:16px; padding:12px; background:#1a1410; border-radius:6px;">
+      <img id="previewArt" style="width:100%; max-width:160px; border-radius:6px; margin-bottom:8px;">
+      <div id="previewTitle" style="font-weight:bold; color:#e8a33d;"></div>
+      <div id="previewArtist" style="color:#b89a6f;"></div>
+      <div id="previewStation" style="color:#b89a6f; font-size:0.85em;"></div>
+    </div>
+
+    <label>Assign to Station</label><br>
+    <select id="stationPick" style="width:100%; margin-bottom:16px; padding:8px;">
+      <option value="desert">Desert Rock Radio</option>
+      <option value="doom">Doom Radio</option>
+      <option value="psychedelic">Psychedelic Radio</option>
+      <option value="instrumental">Instrumental Radio</option>
+    </select><br>
+
+    <button id="connectBtn" class="station" style="width:100%; margin-bottom:16px;">
+      Connect Wallet
+    </button>
+    <div id="walletStatus" style="color:#b89a6f; margin-bottom:16px; font-size:0.85em;"></div>
+
+    <button id="submitBtn" class="station" style="width:100%;" disabled>
+      Submit for Approval
+    </button>
+
+    <div id="statusMsg" style="margin-top:16px; color:#e8a33d;"></div>
+
+  </div>
+</div>
+
+<script src="submit.js" type="module"></script>
+
+</body>
+</html>

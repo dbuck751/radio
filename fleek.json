@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "deploymentType": "ipfs",
+  "build": {
+    "baseDirectory": ".",
+    "publicDirectory": ".",
+    "command": ""
+  }
+}
