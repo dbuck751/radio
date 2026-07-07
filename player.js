@@ -218,7 +218,7 @@ async function fetchLikeCount(track) {
   try {
     const client = getUBNetClient();
     const post = await client.posts.get(track.ubnet_post_id);
-    const count = post?.reactions?.like ?? post?.likeCount ?? post?.stats?.likes ?? 0;
+    const count = post?.reaction_counts?.like ?? 0;
     document.getElementById("likeCount").innerText = count;
   } catch (e) {
     console.warn("Could not fetch like count:", e);
