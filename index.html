@@ -4,10 +4,19 @@
 
 <meta charset="UTF-8">
 <title>Stoner Rock Radio</title>
-
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%231a1410'/><text y='.9em' font-size='85' x='8'>📻</text></svg>">
 <link rel="stylesheet" href="style.css">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Heavy Riffs • Desert Vibes • Loud & Slow — Decentralized Stoner Rock Radio">
+<meta property="og:title" content="Stoner Rock Radio">
+<meta property="og:description" content="Heavy Riffs • Desert Vibes • Loud & Slow — Decentralized Stoner Rock Radio">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dbloops.com/radio2/">
+<meta property="og:image" content="https://dbloops.com/radio2/assets/desert-bg-desktop.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Stoner Rock Radio">
+<meta name="twitter:description" content="Heavy Riffs • Desert Vibes • Loud & Slow — Decentralized Stoner Rock Radio">
+<meta name="twitter:image" content="https://dbloops.com/radio2/assets/desert-bg-desktop.jpg">
 
 </head>
 <body>
@@ -15,10 +24,10 @@
 <div class="header">
   <picture>
     <source media="(max-width: 600px)" srcset="assets/desert-bg-mobile.jpg">
-    <img src="assets/desert-bg-desktop.jpg" alt="Stoner Rock Music" class="hero-banner">
+    <img src="assets/desert-bg-desktop.jpg" alt="Stoner Rock Radio" class="hero-banner">
   </picture>
   <div class="header-text">
-    <h1>STONER ROCK MUSIC</h1>
+    <h1>STONER ROCK RADIO</h1>
     <div class="tagline">Heavy Riffs &bull; Desert Vibes &bull; Loud &amp; Slow</div>
   </div>
 </div>
@@ -28,20 +37,26 @@
   <div class="sidebar">
     <h3>STATIONS</h3>
     <div class="station" data-station="desert">Desert Rock Radio</div>
-    <div class="station" data-station="doom">Doom Radio</div>
     <div class="station" data-station="psychedelic">Psychedelic Radio</div>
     <div class="station" data-station="instrumental">Instrumental Radio</div>
     <a href="submit.html" class="submit-link">+ Submit a Track</a>
+    <a href="contact.html" class="submit-link">&#9993; Contact Us</a>
   </div>
 
   <div class="player-panel">
-    <img id="art" src="assets/desert-bg.png">
-    <div class="song" id="title">Loading...</div>
-    <div class="artist" id="artist">Please Wait</div>
+    <div class="now-playing-label">&#9654; NOW PLAYING</div>
+    <div class="art-wrapper">
+      <img id="art" src="assets/desert-bg.png">
+      <div id="artLoader" class="art-loader">
+        <div class="spinner"></div>
+      </div>
+    </div>
+    <div class="song" id="title">Tuning in...</div>
+    <div class="artist" id="artist"></div>
     <div class="artist" id="description" style="font-size:0.8em; font-style:italic; margin-bottom:10px;"></div>
-    <audio id="player" controls autoplay></audio>
+    <audio id="player" controls autoplay controlsList="nodownload" oncontextmenu="return false"></audio>
     <div class="player-actions">
-      <button id="skipBtn" class="skip-btn">&#9654;&#9654; Skip</button>
+      <button id="nextStationBtn" class="skip-btn">&#9654; Next Station</button>
       <button id="likeBtn" class="like-btn">&#9829; <span id="likeCount">0</span></button>
     </div>
   </div>
@@ -77,8 +92,9 @@
 
 </div>
 
-<div class="footer">DBLoops Stoner Rock Radio</div>
+<div class="footer">Decentralized Stoner Rock Radio &copy; 2026 dbloops</div>
 
+<script src="https://my.eth-ub.net/sdk/v1/ubnet.js"></script>
 <script src="player.js" type="module"></script>
 
 </body>
